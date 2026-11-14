@@ -1,22 +1,19 @@
 package com.example.todo.dto;
 
+import com.example.todo.enums.Priority;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class TodoRequestDto {
 
-    @NotBlank
-    @Size(min = 3, max = 100)
-    private String title;
+public record TodoRequestDto(
+        @NotBlank
+        @Size(min = 3, max = 100)
+        String title,
 
-    @Size(max = 500)
-    private String description;
+        @Size(max = 500)
+        String description,
 
-    private String priority;
-}
+        @NotBlank
+        Priority priority
+) { }

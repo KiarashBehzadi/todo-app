@@ -1,18 +1,13 @@
 package com.example.todo.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class TodoResponseDto {
+import com.example.todo.enums.Priority;
 
-    private Long todoId;
-    private String title;
-    private String description;
-    private String priority;
-    private boolean completed;
+public record TodoResponseDto(
+        Long todoId,
+        String title,
+        String description,
+        Priority priority,
+        boolean completed
 
-}
+) { }
