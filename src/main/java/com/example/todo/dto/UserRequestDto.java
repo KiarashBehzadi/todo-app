@@ -1,14 +1,14 @@
 package com.example.todo.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class UserRequestDto {
+public record UserRequestDto(
+        @NotBlank
+        @Size(min = 3, message = "Username must have at least 3 characters")
+        String username,
 
-    private String username;
-    private String password;
-}
+        @NotBlank
+        @Size(min = 4, max = 12, message = "Password must be between 4 and 8 characters")
+        String password
+) { }
