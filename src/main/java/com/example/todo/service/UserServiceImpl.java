@@ -18,6 +18,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDto createUser(UserRequestDto userRequestDto) {
+
+        if (userRepository.existsByUsername(userRequestDto.username())){
+            throw new UserAlreadyExistsException("User already exists: " + userRequestDto.username());
+        }
+
         User user = new User();
         user.setUsername(userRequestDto.username());
         user.setPassword(userRequestDto.password());
