@@ -36,10 +36,12 @@ POST http://localhost:8080/users
 ```
 
 ### Response - 201 Created
+```json
     {
         "userId": 1,
         "username": "kia"
     }
+```
 
 
 
@@ -48,12 +50,15 @@ POST http://localhost:8080/users
 ### Request
 POST http://localhost:8080/users/1/todos
 ###
+```json
     {
         "title":"Buy milk",
         "description":"2 liters of milk",
         "priority":"MEDIUM"
     }
+```
 ### Response -201 Created
+```json
     {
         "todoId": 1,
         "title": "Buy milk",
@@ -61,15 +66,19 @@ POST http://localhost:8080/users/1/todos
         "priority": "MEDIUM",
         "completed": false
     }
+```
 ### Request
 POST http://localhost:8080/users/1/todos
 ###
+```json
     {
         "title":"Java Course",
         "description":"I should review and practice.. ",
         "priority":"HIGH"
     }
+```
 ### Response
+```json
     {
             "todoId": 2,
             "title": "Java Course",
@@ -77,6 +86,7 @@ POST http://localhost:8080/users/1/todos
             "priority": "HIGH",
             "completed": false
         }
+```
 
 
 ## GET All Todos of a User  
@@ -84,6 +94,7 @@ POST http://localhost:8080/users/1/todos
 ### Request
 GET http://localhost:8080/users/1/todos
 ### Response
+```json
     [
         {
             "todoId": 1,
@@ -100,6 +111,7 @@ GET http://localhost:8080/users/1/todos
             "completed": false
         }
     ]
+```
 
 
 
@@ -131,12 +143,12 @@ Global Exception Handling is implemented using `@RestControllerAdvice`
 ### Request
 
 POST /users
-
+```json
 {
   "username": "randy",
   "password": "1234"
 }
-
+```
 ### Response — 409 Conflict
 
 User already exists: randy
