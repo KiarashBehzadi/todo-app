@@ -42,19 +42,6 @@ POST http://localhost:8080/users
     }
 
 
-### Request
-POST http://localhost:8080/users
-
-### Body
-    {
-        "username":"maria",
-        "password":"marii1#"
-    }
-### Response
-    {
-        "userId": 3,
-        "username": "maria"
-    }
 
 ## 2. Create Todo (POST /users/{id}/todos)
 
