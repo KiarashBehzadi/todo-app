@@ -3,6 +3,7 @@ package com.example.todo.service;
 import com.example.todo.dto.UserRequestDto;
 import com.example.todo.dto.UserResponseDto;
 import com.example.todo.entity.User;
+import com.example.todo.exception.UserAlreadyExistsException;
 import com.example.todo.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,20 +19,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto createUser(UserRequestDto userRequestDto) {
         User user = new User();
-        user.setUsername(userRequestDto.getUsername());
-        user.setPassword(userRequestDto.getPassword());
+        user.setUsername(userRequestDto.username());
+        user.setPassword(userRequestDto.password());
 
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
 
-        return toDto(user);
+        return toDto(savedUser);
     }
 
 
-    // maps user-entity to UserResponse-Dto
+    // maps User-entity to UserResponse-Dto
     private UserResponseDto toDto(User user) {
-        UserResponseDto userResponseDto = new UserResponseDto();
-        userResponseDto.setUserId(user.getUserId());
-        userResponseDto.setUsername(user.getUsername());
-        return userResponseDto;
+        return new UserResponseDto(
+                user.getUserId(),
+                user.getUsername()
+        );
     }
+
 }
