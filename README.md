@@ -1,5 +1,6 @@
 # Todo App
-## This is a simple Spring Boot project that allows creating users and assigning  todos to each user. 
+## A simple RESTful API built with Spring Boot that allows users creating users to create accounts and manage their personal todo lists.
+### Each user can create and retrieve their own todos with different Priority levels.
 ### All requests were tested using Postman, and the data is stored in PostgreSQL database.
 
 ## Technologies used
