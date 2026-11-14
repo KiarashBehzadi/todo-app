@@ -4,9 +4,9 @@ import com.example.todo.dto.TodoRequestDto;
 import com.example.todo.dto.TodoResponseDto;
 import com.example.todo.entity.Todo;
 import com.example.todo.entity.User;
-import com.example.todo.enums.Priority;
 import com.example.todo.repository.TodoRepository;
 import com.example.todo.repository.UserRepository;
+import com.example.todo.exception.UserNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,19 +25,20 @@ public class TodoServiceImpl implements TodoService {
 
     @Override
     public TodoResponseDto createTodo(Long userId, TodoRequestDto dto) {
+
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new UserNotFoundException("User not found: " + userId));
 
         Todo todo = new Todo();
-        todo.setTitle( dto.getTitle() );
-        todo.setDescription( dto.getDescription() );
-        todo.setPriority( Priority.valueOf(dto.getPriority()) );
+        todo.setTitle( dto.title() );
+        todo.setDescription( dto.description() );
+        todo.setPriority( dto.priority() );
         todo.setCompleted(false);
         todo.setUser(user);
 
-        todoRepository.save(todo);
+        Todo savedTodo = todoRepository.save(todo);
 
-        return toDto(todo);
+        return toDto(savedTodo);
     }
 
 
@@ -55,6 +56,7 @@ public class TodoServiceImpl implements TodoService {
                 .collect(Collectors.toList());
     }
 
+
     // mapping Todo-entity to Todo-Dto
     private TodoResponseDto toDto(Todo todo){
         return new TodoResponseDto(
@@ -65,4 +67,5 @@ public class TodoServiceImpl implements TodoService {
                 todo.isCompleted()
         );
     }
+
 }
