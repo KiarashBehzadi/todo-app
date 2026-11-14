@@ -45,21 +45,24 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public List<TodoResponseDto> getUserTodos(Long userId) {
 
+        userRepository.findById(userId)
+                .orElseThrow(()-> new UserNotFoundException("User not found : " + userId));
+
         List<Todo> todos = todoRepository.findByUserId(userId);
 
         return todos.stream()
-                .map(todo -> toDto(todo))
+                .map(this::toDto)
                 .collect(Collectors.toList());
     }
 
     // mapping Todo-entity to Todo-Dto
     private TodoResponseDto toDto(Todo todo){
-        TodoResponseDto dto = new TodoResponseDto();
-        dto.setTodoId(todo.getTodoId());
-        dto.setTitle(todo.getTitle());
-        dto.setDescription(todo.getDescription());
-        dto.setPriority(todo.getPriority().name());
-        dto.setCompleted(todo.isCompleted());
-        return dto;
+        return new TodoResponseDto(
+                todo.getTodoId(),
+                todo.getTitle(),
+                todo.getDescription(),
+                todo.getPriority(),
+                todo.isCompleted()
+        );
     }
 }
