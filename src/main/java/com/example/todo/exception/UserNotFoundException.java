@@ -1,4 +1,4 @@
-package exception;
+package com.example.todo.exception;
 
 public class UserNotFoundException extends RuntimeException {
 
