@@ -4,6 +4,8 @@ import com.example.todo.dto.TodoRequestDto;
 import com.example.todo.dto.TodoResponseDto;
 import com.example.todo.service.TodoService;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -19,10 +21,16 @@ public class TodoController {
 
 
     @PostMapping
-    public TodoResponseDto createTodo(@PathVariable Long userId,
-                                      @RequestBody @Valid TodoRequestDto dto) {
-        return todoService.createTodo(userId, dto);
+    public ResponseEntity<TodoResponseDto> createTodo(@PathVariable Long userId,
+                                      @Valid @RequestBody TodoRequestDto dto) {
+
+        TodoResponseDto response = todoService.createTodo(userId, dto);
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(response);
     }
+
 
     @GetMapping
     public List<TodoResponseDto> getTodos(@PathVariable Long userId){
